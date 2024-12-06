@@ -1,0 +1,3 @@
+# Application Context Factories
+org.springframework.boot.ApplicationContextFactory=\
+com.fulizhe.ssj.AnnotationConfigServletWebServerApplicationContextWithHumanableStart2.Factory
