@@ -3,6 +3,9 @@ package com.fulizhe.ssj.miniwebserver;
 import java.util.Collections;
 import java.util.Map;
 
+import cn.hutool.core.convert.Convert;
+import com.fulizhe.ssj.IRequestDealer;
+import com.fulizhe.ssj.IStaticLoadingPageFactory;
 import org.springframework.util.PropertyPlaceholderHelper;
 
 import com.fulizhe.ssj.IMiniWebServer;
@@ -16,19 +19,20 @@ import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 
-public class MiniUndertowServer implements IMiniWebServer {
+public class MiniUndertowServer extends AbstractMiniWebServer implements IMiniWebServer {
 
-    Undertow minimalUndertowserver;
+    private Undertow minimalUndertowServer;
 
-    private static final long startTime = System.currentTimeMillis();
+    private final IRequestDealer requestDealer;
 
-    private final MySharedLock mySharedLock = new MySharedLock();
+    public MiniUndertowServer(IRequestDealer requestDealer) {
+        this.requestDealer = requestDealer;
+    }
 
     @Override
     public void start(int port) {
-        final String loadingHtml = ResourceUtil.readStr("static/loading.html", CharsetUtil.CHARSET_UTF_8);
         // Start the minimal Undertow server
-        minimalUndertowserver = Undertow.builder().addHttpListener(port, "0.0.0.0").setHandler(new HttpHandler() {
+        minimalUndertowServer = Undertow.builder().addHttpListener(port, "0.0.0.0").setHandler(new HttpHandler() {
 
             @Override
             public void handleRequest(HttpServerExchange exchange) throws Exception {
@@ -38,7 +42,14 @@ public class MiniUndertowServer implements IMiniWebServer {
                 String requestURL = exchange.getRequestURL();
                 Console.log("### ========== \n requestURI: {} \n requestURL: {} ", requestURI, requestURL);
 
+                final IRequestDealer.IRequestDealContext undertowContext = IRequestDealer.IRequestDealContextFactory.getUndertowContext(exchange);
+                requestDealer.deal(undertowContext);
+                if (undertowContext.isDealed()) {
+                    return;
+                }
+
                 //
+                /*
                 if (StrUtil.isNotEmpty(requestURI) && requestURI.contains("/inner/start")) {
                     Console.log("### 继续undertow容器的启动流程");
                     mySharedLock.notifyMainThread();
@@ -49,24 +60,20 @@ public class MiniUndertowServer implements IMiniWebServer {
                     Console.log("### 接收用户提交的配置项, 进行持久化");
 
                 } else {
-                    exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/html");
+                */
 
-                    long currentTime = System.currentTimeMillis();
-                    long secondsPassed = (currentTime - startTime) / 1000;
-                    Console.log("### elapseTimeBySecond: [ {} ]s", secondsPassed);
-                    final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${",
-                            "}");
-                    final Map<String, String> map = Collections.singletonMap("elapseTimeBySecond",
-                            StrUtil.toString(secondsPassed));
-                    final String loadingHtmlFinal = propertyPlaceholderHelper.replacePlaceholders(loadingHtml,
-                            map::get);
-                    exchange.getResponseSender().send(loadingHtmlFinal);
-                }
+                exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/html");
 
+                long currentTime = System.currentTimeMillis();
+                long secondsPassed = (currentTime - startTime) / 1000;
+                Console.log("### elapseTimeBySecond: [ {} ]s", secondsPassed);
+
+                final String loadingHtml = staticLoadingPageFactory.get(Convert.toInt(secondsPassed));
+                exchange.getResponseSender().send(loadingHtml);
             }
         }).build();
 
-        minimalUndertowserver.start();
+        minimalUndertowServer.start();
 
         // === main thread
         // 这里阻塞主线程, 此时minimal-Undertow-Server已经启动了, 所以可以正常响应外界请求——界面化修改配置项.
@@ -81,6 +88,6 @@ public class MiniUndertowServer implements IMiniWebServer {
         // 1. finishBeanFactoryInitialization() 比较耗时
         // 2. super.finishRefresh()中将触发 WebServerStartStopLifecycle.start()
         // 以启动webserver, 所以我们得在它之前将我们的轻量级webserver关闭掉
-        minimalUndertowserver.stop();
+        minimalUndertowServer.stop();
     }
 }

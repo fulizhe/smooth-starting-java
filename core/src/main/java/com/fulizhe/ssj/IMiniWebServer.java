@@ -12,11 +12,12 @@ public interface IMiniWebServer {
 
     static class Factory {
         static IMiniWebServer get() {
+            final IRequestDealer iRequestDealer = IRequestDealer.Factory.get();
             if (ClassLoaderUtil.isPresent("io.undertow.Undertow")) {
-                return new MiniUndertowServer();
+                return new MiniUndertowServer(iRequestDealer);
             }
 
-            return new MiniTomcatServer();
+            return new MiniTomcatServer(iRequestDealer);
         }
     }
 }

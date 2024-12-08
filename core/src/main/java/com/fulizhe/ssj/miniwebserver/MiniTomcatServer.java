@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.convert.Convert;
+import com.fulizhe.ssj.IRequestDealer;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
@@ -25,13 +27,15 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 
-public class MiniTomcatServer implements IMiniWebServer {
+public class MiniTomcatServer extends AbstractMiniWebServer implements IMiniWebServer {
 
-    Tomcat minimalTomcatServer;
+    private Tomcat minimalTomcatServer;
 
-    private final MySharedLock mySharedLock = new MySharedLock();
+    private final IRequestDealer requestDealer;
 
-    private static final long startTime = System.currentTimeMillis();
+    public MiniTomcatServer(IRequestDealer requestDealer) {
+        this.requestDealer = requestDealer;
+    }
 
     @Override
     public void start(int port) {
@@ -50,8 +54,8 @@ public class MiniTomcatServer implements IMiniWebServer {
             minimalTomcatServer.start();
         } catch (LifecycleException e) {
             throw ExceptionUtil.wrapRuntime(e);
-        }   
-        
+        }
+
         // === main thread
         // 这里阻塞主线程, 此时minimal-Undertow-Server已经启动了, 所以可以正常响应外界请求——界面化修改配置项.
         // 释放锁在下方的minimal-Undertow-Server响应里
@@ -71,14 +75,14 @@ public class MiniTomcatServer implements IMiniWebServer {
         }
 
     }
-    
+
     //
-    private static class MinimalServlet extends HttpServlet {
+    private class MinimalServlet extends HttpServlet {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 1L;
-        
+
         private final MySharedLock mySharedLock;
 
         public MinimalServlet(MySharedLock mySharedLock) {
@@ -87,6 +91,13 @@ public class MiniTomcatServer implements IMiniWebServer {
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            final IRequestDealer.IRequestDealContext tomcatContext = IRequestDealer.IRequestDealContextFactory.getTomcatContext(req, resp);
+            requestDealer.deal(tomcatContext);
+            if (tomcatContext.isDealed()) {
+                return;
+            }
+
+/*
             resp.setContentType("text/html; charset=UTF-8");
 
             String requestURI = req.getRequestURI();
@@ -98,21 +109,16 @@ public class MiniTomcatServer implements IMiniWebServer {
             } else if (requestURI.contains("/inner/config")) {
                 // Handle configuration changes
             } else {
-                // Default response
-                final String loadingHtml = ResourceUtil.readStr("static/loading.html", CharsetUtil.CHARSET_UTF_8);
-                long currentTime = System.currentTimeMillis();
-                long secondsPassed = (currentTime - startTime) / 1000;
-                Console.log("### elapseTimeBySecond: [ {} ]s", secondsPassed);
-                final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${",
-                        "}");
-                final Map<String, String> map = Collections.singletonMap("elapseTimeBySecond",
-                        StrUtil.toString(secondsPassed));
-                final String loadingHtmlFinal = propertyPlaceholderHelper.replacePlaceholders(loadingHtml,
-                        map::get);
-                PrintWriter writer = resp.getWriter();
-                writer.write(loadingHtmlFinal);
-                writer.flush();
-            }
+ */
+            // Default response
+            long currentTime = System.currentTimeMillis();
+            long secondsPassed = (currentTime - startTime) / 1000;
+            Console.log("### elapseTimeBySecond: [ {} ]s", secondsPassed);
+
+            final String loadingHtml = MiniTomcatServer.this.staticLoadingPageFactory.get(Convert.toInt(secondsPassed));
+            PrintWriter writer = resp.getWriter();
+            writer.write(loadingHtml);
+            writer.flush();
         }
     }
 
