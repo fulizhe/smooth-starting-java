@@ -25,13 +25,10 @@ public class ISsjExtendProviderImpl implements ISsjExtendProvider {
 
                 Console.log("### current uri is [ {} ]", uri);
 
-                if (ArrayUtil.contains(
-                        new String[] { "/simple-page.css", "/loading.css", "/logo.svg", "/loading.js" },
+                if (ArrayUtil.contains(new String[] { "/simple-page.css", "/loading.css", "/logo.svg", "/loading.js" },
                         uri)) {
                     if (uri.contains(".svg")) {
                         dc.addHeader("Content-Type", "image/svg+xml");
-                    }else if (uri.contains(".js")){
-                        dc.addHeader("Content-Type", "application/javascript");
                     }
                     dc.write(ResourceUtil.readUtf8Str("static" + uri));
                 } else if (uri.contains("/inner/lq")) {
@@ -49,12 +46,10 @@ public class ISsjExtendProviderImpl implements ISsjExtendProvider {
             @Override
             public String get(int startedTimeBySecond) {
                 String loadingHtml = ResourceUtil.readUtf8Str("static/loading2.html");
-                final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${",
-                        "}");
+                final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}");
                 final Map<String, String> map = Collections.singletonMap("elapseTimeBySecond",
                         StrUtil.toString(startedTimeBySecond));
-                return propertyPlaceholderHelper.replacePlaceholders(loadingHtml,
-                        map::get);
+                return propertyPlaceholderHelper.replacePlaceholders(loadingHtml, map::get);
             }
         };
     }
