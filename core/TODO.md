@@ -5,6 +5,6 @@
 <s> 5. sample样例  </s>
 <s> 6. 支持不同的springboot版本 —— 2.4+ AND 2.4-  </s>
 7. 推送到官方maven仓库
-8. github流水线
+<s> 8. github流水线</s>
 9. github workspace
 10. github release
