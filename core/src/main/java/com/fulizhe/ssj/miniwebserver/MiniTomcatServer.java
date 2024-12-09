@@ -92,7 +92,7 @@ public class MiniTomcatServer extends AbstractMiniWebServer implements IMiniWebS
             }
 
 /*
-            resp.setContentType("text/html; charset=UTF-8");
+            
 
             String requestURI = req.getRequestURI();
             if (requestURI.contains("/inner/start")) {
@@ -105,6 +105,7 @@ public class MiniTomcatServer extends AbstractMiniWebServer implements IMiniWebS
             } else {
  */
             // Default response
+            resp.setContentType("text/html; charset=UTF-8");
             long currentTime = System.currentTimeMillis();
             long secondsPassed = (currentTime - startTime) / 1000;
             Console.log("### elapseTimeBySecond: [ {} ]s", secondsPassed);
