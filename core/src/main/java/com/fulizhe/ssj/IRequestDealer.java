@@ -3,6 +3,7 @@ package com.fulizhe.ssj;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fulizhe.ssj.requestdealer.JettyRequestDealContext;
 import com.fulizhe.ssj.requestdealer.TomcatRequestDealContext;
 import com.fulizhe.ssj.requestdealer.UndertowRequestDealContext;
 
@@ -54,5 +55,11 @@ public interface IRequestDealer {
         public static IRequestDealContext getTomcatContext(HttpServletRequest request, HttpServletResponse response) {
             return new TomcatRequestDealContext(request, response);
         }
+
+        public static IRequestDealContext getJettyContext(HttpServletRequest req, HttpServletResponse resp) {
+            return new JettyRequestDealContext(req, resp);
+        }
+        
+        
     }
 }

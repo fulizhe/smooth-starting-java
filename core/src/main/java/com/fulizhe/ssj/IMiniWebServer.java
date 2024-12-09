@@ -1,5 +1,6 @@
 package com.fulizhe.ssj;
 
+import com.fulizhe.ssj.miniwebserver.MiniJettyServer;
 import com.fulizhe.ssj.miniwebserver.MiniTomcatServer;
 import com.fulizhe.ssj.miniwebserver.MiniUndertowServer;
 
@@ -15,6 +16,8 @@ public interface IMiniWebServer {
             final IRequestDealer iRequestDealer = SpiProvider.getInstance().requestDealer();
             if (ClassLoaderUtil.isPresent("io.undertow.Undertow")) {
                 return new MiniUndertowServer(iRequestDealer);
+            } else if(ClassLoaderUtil.isPresent("org.eclipse.jetty.server.Server")){
+                return new MiniJettyServer(iRequestDealer);
             }
 
             return new MiniTomcatServer(iRequestDealer);

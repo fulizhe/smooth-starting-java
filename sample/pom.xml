@@ -16,6 +16,8 @@
     <modules>
         <module>tomcat</module>
         <module>undertow</module>
+		<module>jetty</module>
+		
         <module>extend</module>
 		
 		<module>springboot2.3</module>
