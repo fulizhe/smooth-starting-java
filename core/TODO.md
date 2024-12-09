@@ -4,3 +4,7 @@
 <s> 4. 提供唯一的扩展性接口. 不要分散在各个子接口里. ISsjExtendProvider.java  </s>
 <s> 5. sample样例  </s>
 <s> 6. 支持不同的springboot版本 —— 2.4+ AND 2.4-  </s>
+7. 推送到官方maven仓库
+8. github流水线
+9. github workspace
+10. github release
