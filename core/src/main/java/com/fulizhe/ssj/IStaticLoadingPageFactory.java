@@ -20,7 +20,7 @@ public interface IStaticLoadingPageFactory {
 
         @Override
         public String get(int startedTimeBySecond) {
-           String loadingHtml = ResourceUtil.readStr("static/loading.html", CharsetUtil.CHARSET_UTF_8);
+           String loadingHtml = ResourceUtil.readStr("META-INF/loading.html", CharsetUtil.CHARSET_UTF_8);
             final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${",
                     "}");
             final Map<String, String> map = Collections.singletonMap("elapseTimeBySecond",
