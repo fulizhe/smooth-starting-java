@@ -43,7 +43,7 @@ public class AnnotationConfigServletWebServerApplicationContextWithHumanableStar
         super.finishRefresh();
     }
 
-    // ===========================
+    // =========================== SpringBoot2.4+
     static class Factory implements ApplicationContextFactory {
 
         @Override

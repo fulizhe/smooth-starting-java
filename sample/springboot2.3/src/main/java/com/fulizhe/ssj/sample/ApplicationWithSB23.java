@@ -25,6 +25,7 @@ public class ApplicationWithSB23 {
 
     private static void applicationRun(String[] args) {
         final SpringApplication springApplication = new SpringApplication(ApplicationWithSB23.class);
+        // 手动配置
         springApplication.setApplicationContextClass(
                 AnnotationConfigServletWebServerApplicationContextWithHumanableStart.class);
         // 启动Spring容器
