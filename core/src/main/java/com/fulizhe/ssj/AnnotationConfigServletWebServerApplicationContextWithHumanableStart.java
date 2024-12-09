@@ -48,10 +48,9 @@ public class AnnotationConfigServletWebServerApplicationContextWithHumanableStar
 
         @Override
         public ConfigurableApplicationContext create(WebApplicationType webApplicationType) {
-            final ISsjExtendProvider ssjExtendProvider = SpiProvider.getInstance();
-
-            return new AnnotationConfigServletWebServerApplicationContextWithHumanableStart(
-                    ssjExtendProvider.miniWebServer());
+            return (webApplicationType != WebApplicationType.SERVLET) ? null
+                    : new AnnotationConfigServletWebServerApplicationContextWithHumanableStart(
+                            SpiProvider.getInstance().miniWebServer());
         }
 
     }
