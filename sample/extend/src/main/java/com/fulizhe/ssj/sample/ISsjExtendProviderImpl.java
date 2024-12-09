@@ -1,5 +1,10 @@
 package com.fulizhe.ssj.sample;
 
+import java.util.Collections;
+import java.util.Map;
+
+import org.springframework.util.PropertyPlaceholderHelper;
+
 import com.fulizhe.ssj.IRequestDealer;
 import com.fulizhe.ssj.ISsjExtendProvider;
 import com.fulizhe.ssj.IStaticLoadingPageFactory;
@@ -7,6 +12,7 @@ import com.fulizhe.ssj.IStaticLoadingPageFactory;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
 
 public class ISsjExtendProviderImpl implements ISsjExtendProvider {
     @Override
@@ -42,7 +48,13 @@ public class ISsjExtendProviderImpl implements ISsjExtendProvider {
 
             @Override
             public String get(int startedTimeBySecond) {
-                return ResourceUtil.readUtf8Str("static/loading2.html");
+                String loadingHtml = ResourceUtil.readUtf8Str("static/loading2.html");
+                final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${",
+                        "}");
+                final Map<String, String> map = Collections.singletonMap("elapseTimeBySecond",
+                        StrUtil.toString(startedTimeBySecond));
+                return propertyPlaceholderHelper.replacePlaceholders(loadingHtml,
+                        map::get);
             }
         };
     }

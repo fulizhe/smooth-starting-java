@@ -14,7 +14,7 @@ import cn.hutool.core.util.RandomUtil;
 public class HelloController {
     
     public HelloController(){
-        ThreadUtil.safeSleep(1000 * 20);
+        ThreadUtil.safeSleep(1000 * 10);
     }
 
 	@GetMapping("/hello")
