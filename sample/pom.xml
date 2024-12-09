@@ -17,5 +17,7 @@
         <module>tomcat</module>
         <module>undertow</module>
         <module>extend</module>
+		
+		<module>springboot2.3</module>
     </modules>
 </project>
