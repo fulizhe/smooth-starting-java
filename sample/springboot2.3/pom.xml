@@ -142,21 +142,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-              <groupId>com.github.ferstl</groupId>
-              <artifactId>depgraph-maven-plugin</artifactId>
-              <version>4.0.3</version>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>graph</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-        
-
         </plugins>
     </build>
 
