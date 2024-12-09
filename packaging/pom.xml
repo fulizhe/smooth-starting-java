@@ -17,7 +17,7 @@
               <executions>
                 <execution>
                   <goals>
-                    <goal>generate</goal>
+                    <goal>graph</goal>
                   </goals>
                 </execution>
               </executions>
