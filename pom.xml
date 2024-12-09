@@ -70,4 +70,24 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+
+            <plugin>
+              <groupId>com.github.ferstl</groupId>
+              <artifactId>depgraph-maven-plugin</artifactId>
+              <version>4.0.3</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>generate</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+
+        
+        </plugins>
+    </build>
+
 </project>
