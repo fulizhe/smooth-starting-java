@@ -1,23 +1,20 @@
 package com.fulizhe.ssj;
 
-import cn.hutool.core.lang.Console;
-import cn.hutool.core.util.ClassLoaderUtil;
-import cn.hutool.core.util.StrUtil;
-import com.fulizhe.ssj.miniwebserver.MiniTomcatServer;
-import com.fulizhe.ssj.miniwebserver.MiniUndertowServer;
-import com.fulizhe.ssj.requestdealer.TomcatRequestDealContext;
-import com.fulizhe.ssj.requestdealer.UndertowRequestDealContext;
-import io.undertow.server.HttpServerExchange;
-import io.undertow.util.Headers;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fulizhe.ssj.requestdealer.TomcatRequestDealContext;
+import com.fulizhe.ssj.requestdealer.UndertowRequestDealContext;
+
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
+import io.undertow.server.HttpServerExchange;
 
 public interface IRequestDealer {
     void deal(IRequestDealContext dc);
 
     static class Factory {
-        static IRequestDealer get() {
+        public static IRequestDealer get() {
             return new IRequestDealer() {
                 @Override
                 public void deal(IRequestDealContext dc) {

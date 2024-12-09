@@ -1,11 +1,11 @@
 package com.fulizhe.ssj;
 
+import java.util.Optional;
+
 import org.springframework.boot.ApplicationContextFactory;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-
-import java.util.Optional;
 
 /**
  * @author LQ
@@ -39,13 +39,15 @@ class AnnotationConfigServletWebServerApplicationContextWithHumanableStart3
         super.finishRefresh();
     }
 
-
     // ===========================
     static class Factory implements ApplicationContextFactory {
 
         @Override
         public ConfigurableApplicationContext create(WebApplicationType webApplicationType) {
-            return new AnnotationConfigServletWebServerApplicationContextWithHumanableStart3(IMiniWebServer.Factory.get());
+            final ISsjExtendProvider ssjExtendProvider = SpiProvider.getInstance();
+
+            return new AnnotationConfigServletWebServerApplicationContextWithHumanableStart3(
+                    ssjExtendProvider.miniWebServer());
         }
 
     }

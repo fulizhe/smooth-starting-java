@@ -11,8 +11,8 @@ public interface IMiniWebServer {
     void stop();
 
     static class Factory {
-        static IMiniWebServer get() {
-            final IRequestDealer iRequestDealer = IRequestDealer.Factory.get();
+        public static IMiniWebServer get() {
+            final IRequestDealer iRequestDealer = SpiProvider.getInstance().requestDealer();
             if (ClassLoaderUtil.isPresent("io.undertow.Undertow")) {
                 return new MiniUndertowServer(iRequestDealer);
             }

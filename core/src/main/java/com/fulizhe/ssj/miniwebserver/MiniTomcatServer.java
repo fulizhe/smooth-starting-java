@@ -3,29 +3,23 @@ package com.fulizhe.ssj.miniwebserver;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.hutool.core.convert.Convert;
-import com.fulizhe.ssj.IRequestDealer;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
-import org.springframework.util.PropertyPlaceholderHelper;
 
 import com.fulizhe.ssj.IMiniWebServer;
+import com.fulizhe.ssj.IRequestDealer;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.exceptions.ExceptionUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.StrUtil;
 
 public class MiniTomcatServer extends AbstractMiniWebServer implements IMiniWebServer {
 
