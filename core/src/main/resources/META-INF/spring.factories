@@ -1,3 +1,11 @@
 # Application Context Factories
 org.springframework.boot.ApplicationContextFactory=\
 com.fulizhe.ssj.AnnotationConfigServletWebServerApplicationContextWithHumanableStart.Factory
+
+# Environment Post Processors
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.fulizhe.ssj.propedit.OverridePropertiesPropertySourceEnvironmentPostProcessor
+
+#
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.fulizhe.ssj.propedit.CustomPropertiesConfiguration

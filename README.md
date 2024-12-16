@@ -10,3 +10,4 @@
 
 # 相关资源:
 1. [free svg](https://www.svgrepo.com/vectors/snail/)
+2. [jquery-smartwizard](https://github.com/techlab/jquery-smartwizard/blob/master/examples/validation.html)
