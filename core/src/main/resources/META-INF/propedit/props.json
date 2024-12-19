@@ -1,0 +1,19 @@
+{
+	"1" : {
+	  "title":"",
+	  "items":[
+	    {
+	      "name" : "",
+	      "type" : "num"	  
+	    },
+	    { 
+	      "name" : "",
+	      "type" : "date"	  
+	    },
+	    { 
+	      "name" : "",
+	      "type" : "str"	  
+	    }
+	  ]
+	}
+}
