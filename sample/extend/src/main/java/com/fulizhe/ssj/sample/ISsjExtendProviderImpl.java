@@ -25,7 +25,7 @@ public class ISsjExtendProviderImpl implements ISsjExtendProvider {
 
                 Console.log("### current uri is [ {} ]", uri);
 
-                if (ArrayUtil.contains(new String[] { "/simple-page.css", "/loading.css", "/logo.svg", "/loading.js" },
+                if (ArrayUtil.contains(new String[] { "/simple-page.css", "/loading.css", "/snail-loading.svg", "/logo.svg", "/loading.js" },
                         uri)) {
                     if (uri.contains(".svg")) {
                         dc.addHeader("Content-Type", "image/svg+xml");
