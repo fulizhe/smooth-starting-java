@@ -414,8 +414,12 @@
                   showNextButton: true, // show/hide a Next button
                   showPreviousButton: true, // show/hide a Previous button
                   position: 'bottom', // none/ top/ both bottom
-                  extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">Complete Order</button>
-                              <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">Cancel</button>`
+                  extraHtml: `<button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">完成</button>
+                              <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">取消</button>`,
+                },
+                lang: {
+                    next: '下一步',
+                    previous: '上一步'
                 },
                 anchor: {
                     enableNavigation: true, // Enable/Disable anchor navigation 
