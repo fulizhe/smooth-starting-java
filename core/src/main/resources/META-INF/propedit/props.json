@@ -1,19 +1,38 @@
 {
-	"1" : {
-	  "title":"",
-	  "items":[
-	    {
-	      "name" : "",
-	      "type" : "num"	  
-	    },
-	    { 
-	      "name" : "",
-	      "type" : "date"	  
-	    },
-	    { 
-	      "name" : "",
-	      "type" : "str"	  
-	    }
-	  ]
-	}
+	"steps": [
+		{
+			"title": "GZip Configuration",
+			"fields": [
+				{
+					"name": "Enable GZip",
+					"type": "checkbox",
+					"id": "server_compression_enabled"
+				},
+				{
+					"name": "Supported MIME Types",
+					"type": "text",
+					"id": "server_compression_mime-types",
+					"default": "text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml,application/octet-stream"
+				},
+				{
+					"name": "Minimum Response Size",
+					"type": "text",
+					"id": "server_compression_min-response-size",
+					"default": "2KB"
+				}
+			]
+		},
+		{
+			"title": "Log Level",
+			"fields": [
+				{
+					"name": "Log Level",
+					"type": "select",
+					"id": "log_level",
+					"options": ["TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "OFF"],
+					"default": "INFO"
+				}
+			]
+		}
+	]
 }
