@@ -69,29 +69,33 @@
           <!-- 1 -->
           <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
               <form id="form-1" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
-                <div class="col">
-                  <label for="server_compression_enabled" class="form-label">启用Gzip</label>
-                  <input class="form-control" type="checkbox" value="" id="server_compression_enabled" name="server_compression_enabled">                  
+                <div class="col d-flex align-items-center mb-3">
+                  <label for="server_compression_enabled" class="form-label me-3 mb-0 text-end" style="width: 150px;">启用Gzip</label>
+                  <input class="form-check-input" type="checkbox" value="" id="server_compression_enabled" name="server_compression_enabled">                  
                 </div>
                 <!-- -->
-                <div class="col">
-                  <label for="server_compression_mime-types" class="form-label">支持的mime-types</label>
-                  <input type="text" class="form-control" id="server_compression_mime-types" value="text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml,application/octet-stream" required>
-                  <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                  <div class="invalid-feedback">
-                    Please provide last name.
+                <div class="col d-flex align-items-center mb-3">
+                  <label for="server_compression_mime-types" class="form-label me-3 mb-0 text-end" style="width: 150px;">支持的mime-types</label>
+                  <div class="flex-grow-1">
+                    <input type="text" class="form-control" id="server_compression_mime-types" value="text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml,application/octet-stream" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                      Please provide last name.
+                    </div>
                   </div>
                 </div>
-                <div class="col">
-                  <label for="server_compression_min-response-size" class="form-label">最小response-size</label>
-                  <input type="text" class="form-control" id="server_compression_min-response-size" value="2KB" required>
-                  <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                  <div class="invalid-feedback">
-                    Please provide last name.
+                <div class="col d-flex align-items-center">
+                  <label for="server_compression_min-response-size" class="form-label me-3 mb-0 text-end" style="width: 150px;">最小response-size</label>
+                  <div class="flex-grow-1">
+                    <input type="text" class="form-control" id="server_compression_min-response-size" value="2KB" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                      Please provide last name.
+                    </div>
                   </div>
                 </div>                 
               </form>
