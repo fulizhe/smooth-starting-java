@@ -8,3 +8,4 @@
 <s> 8. github流水线</s>
 9. github workspace
 10. github release
+11. 提供一个配置设置界面。其中用户可以通过编辑元信息文件(形如项目中的prop.json文件)来设置有哪些需要配置的配置项. 然后后端代码通过解析这个配置文件来生成配置界面. 相关类型 ConfigToHtmlGenerator.java
