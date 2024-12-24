@@ -44,6 +44,65 @@
                 20% { opacity: 1; }
                 100% { opacity: 0.2; }
             }
+            .system-info {
+                margin-top: 40px;
+                text-align: left;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .system-info h2 {
+                color: #333;
+                margin-bottom: 20px;
+                font-size: 20px;
+                border-bottom: 2px solid #eee;
+                padding-bottom: 10px;
+            }
+            
+            .system-info table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #fff;
+            }
+            
+            .system-info td {
+                padding: 12px;
+                border: 1px solid #eee;
+                font-size: 14px;
+            }
+            
+            .system-info td:nth-child(odd) {
+                background-color: #f8f9fa;
+                width: 100px;
+                color: #28a745;
+                font-weight: 500;
+            }
+            
+            .system-info td:nth-child(even) {
+                color: #666;
+            }
+            
+            .divider {
+                width: 100%;
+                max-width: 800px;
+                margin: 40px auto;
+                height: 1px;
+                background: linear-gradient(to right, transparent, #28a745, transparent);
+                position: relative;
+            }
+            
+            .divider::before {
+                content: '';
+                position: absolute;
+                top: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 10px;
+                height: 10px;
+                background-color: #28a745;
+                border-radius: 50%;
+            }
         </style>
     </head>
     <body>
@@ -58,6 +117,48 @@
                 <span>.</span>
             </h1>
             <p class="restarting">浏览器将在应用启动完毕后自动跳转.</p>
+            
+            <div class="divider"></div>
+            
+            <div class="system-info">
+                <h2>系统信息</h2>
+                <table>
+                    <tr>
+                        <td>操作系统:</td>
+                        <td>${os}</td>
+                        <td>系统内存:</td>
+                        <td>${memory}</td>
+                    </tr>
+                    <tr>
+                        <td>系统架构:</td>
+                        <td>${arch}</td>
+                        <td>CPU核心数:</td>
+                        <td>${cpuCores}</td>
+                    </tr>
+                    <tr>
+                        <td>JDK版本:</td>
+                        <td>${jdkVersion}</td>
+                        <td>系统时区:</td>
+                        <td>${timezone}</td>
+                    </tr>
+                    <tr>
+                        <td>JDK供应商:</td>
+                        <td>${jdkVendor}</td>
+                        <td>系统编码:</td>
+                        <td>${encoding}</td>
+                    </tr>
+                    <tr>
+                        <td>工作目录:</td>
+                        <td colspan="3">${workDir}</td>
+                    </tr>
+                    <tr>
+                        <td>用户名:</td>
+                        <td>${username}</td>
+                        <td>系统状态:</td>
+                        <td>${status}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <script src="./loading.js" type="text/javascript"></script>
     </body>

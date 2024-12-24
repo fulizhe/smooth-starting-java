@@ -1,6 +1,7 @@
 package com.fulizhe.ssj.sample;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -47,8 +48,19 @@ public class ISsjExtendProviderImpl implements ISsjExtendProvider {
             public String get(int startedTimeBySecond) {
                 String loadingHtml = ResourceUtil.readUtf8Str("static/loading2.html");
                 final PropertyPlaceholderHelper propertyPlaceholderHelper = new PropertyPlaceholderHelper("${", "}");
-                final Map<String, String> map = Collections.singletonMap("elapseTimeBySecond",
-                        StrUtil.toString(startedTimeBySecond));
+                Map<String, String> map = new HashMap<>();
+                map.put("elapseTimeBySecond", StrUtil.toString(startedTimeBySecond));
+                map.put("os", System.getProperty("os.name"));
+                map.put("memory", Runtime.getRuntime().totalMemory() / 1024 / 1024 + "MB");
+                map.put("arch", System.getProperty("os.arch")); 
+                map.put("cpuCores", Runtime.getRuntime().availableProcessors() + "");
+                map.put("jdkVersion", System.getProperty("java.version"));
+                map.put("timezone", System.getProperty("user.timezone"));
+                map.put("jdkVendor", System.getProperty("java.vendor"));
+                map.put("encoding", System.getProperty("file.encoding"));
+                map.put("workDir", System.getProperty("user.dir"));
+                map.put("username", System.getProperty("user.name"));
+                map.put("status", "正在启动中...");
                 return propertyPlaceholderHelper.replacePlaceholders(loadingHtml, map::get);
             }
         };
