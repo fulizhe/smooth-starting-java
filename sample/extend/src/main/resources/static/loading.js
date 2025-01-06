@@ -43,7 +43,6 @@ const Fetch = {
 };
 
 function safeRedirector(preferredUrl, fallbackUrl) {
-debugger
   const timeout = 5000;
   window.setTimeout(function () {
     const statusChecker = arguments.callee;
