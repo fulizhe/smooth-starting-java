@@ -10,6 +10,24 @@
                 dur="8s"
                 repeatCount="indefinite"/>
         </path>
+        <circle cx="435" cy="100" r="8" fill="#FFFFFF">
+            <animateTransform
+                attributeName="transform"
+                type="translate"
+                from="-100"
+                to="600"
+                dur="8s"
+                repeatCount="indefinite"/>
+        </circle>
+        <circle cx="485" cy="123" r="8" fill="#FFFFFF">
+            <animateTransform
+                attributeName="transform"
+                type="translate"
+                from="-100"
+                to="600"
+                dur="8s"
+                repeatCount="indefinite"/>
+        </circle>
     </g>
     <text x="400" y="750" text-anchor="middle" font-family="Arial" font-size="24" fill="#666">
         System is starting slowly...
