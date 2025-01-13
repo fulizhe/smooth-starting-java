@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>配置向导</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- SmartWizard CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+    <!-- Animate CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="mb-5 border-bottom">
+            <h1>系统配置向导</h1>
+            <div class="mb-2 text-muted">请按步骤完成系统配置</div>
+            <div class="float-end text-muted me-3 mt-2">
+                步骤: <span id="sw-current-step"></span> / <span id="sw-total-step"></span>
+            </div>
+        </div>
+
+        <!-- SmartWizard HTML -->
+        <div id="smartwizard">
+            <ul class="nav nav-progress">
+                <li th:each="step,stepStat : ${steps}" class="nav-item">
+                    <a class="nav-link" th:href="'#step-' + ${stepStat.count}">
+                        <div class="num" th:text="${stepStat.count}">1</div>
+                        <span th:text="${step.title}">步骤标题</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div th:each="step,stepStat : ${steps}" th:id="'step-' + ${stepStat.count}" class="tab-pane" role="tabpanel">
+                    <form th:id="'form-' + ${stepStat.count}" class="row row-cols-1 ms-5 me-5 needs-validation" novalidate>
+                        <div th:each="field : ${step.fields}" class="col d-flex align-items-center mb-3">
+                            <label th:for="${field.id}" class="form-label me-3 mb-0 text-end" style="width: 150px;" th:text="${field.name}">字段名称</label>
+                            
+                            <!-- Checkbox 类型 -->
+                            <div th:if="${field.type == 'checkbox'}" class="form-check">
+                                <input class="form-check-input" type="checkbox" th:id="${field.id}" th:name="${field.id}">
+                            </div>
+                            
+                            <!-- Text 类型 -->
+                            <div th:if="${field.type == 'text'}" class="flex-grow-1">
+                                <input type="text" class="form-control" th:id="${field.id}" th:value="${field.default}" required>
+                                <div class="valid-feedback">输入正确!</div>
+                                <div class="invalid-feedback" th:text="'请输入有效的' + ${field.name}">请输入有效值</div>
+                            </div>
+                            
+                            <!-- Select 类型 -->
+                            <div th:if="${field.type == 'select'}" class="flex-grow-1">
+                                <select class="form-select" th:id="${field.id}" required>
+                                    <option th:each="option : ${field.options}" 
+                                            th:value="${option}" 
+                                            th:text="${option}"
+                                            th:selected="${option == field.default}">选项</option>
+                                </select>
+                                <div class="valid-feedback">选择正确!</div>
+                                <div class="invalid-feedback" th:text="'请选择' + ${field.name}">请选择选项</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SmartWizard JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            // SmartWizard 初始化
+            $('#smartwizard').smartWizard({
+                selected: 0,
+                theme: 'arrows',
+                transition: {
+                    animation: 'slide-horizontal'
+                },
+                toolbar: {
+                    showNextButton: true,
+                    showPreviousButton: true,
+                    position: 'bottom',
+                    extraHtml: `
+                        <button class="btn btn-success" id="btnFinish" disabled onclick="onConfirm()">完成</button>
+                        <button class="btn btn-danger" id="btnCancel" onclick="onCancel()">取消</button>
+                    `
+                },
+                lang: {
+                    next: '下一步',
+                    previous: '上一步'
+                }
+            });
+
+            // 表单验证
+            $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIdx, nextStepIdx, stepDirection) {
+                if (stepDirection == 'forward') {
+                    let form = document.getElementById('form-' + (currentStepIdx + 1));
+                    if (form) {
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated');
+                            $('#smartwizard').smartWizard("setState", [currentStepIdx], 'error');
+                            $("#smartwizard").smartWizard('fixHeight');
+                            return false;
+                        }
+                        $('#smartwizard').smartWizard("unsetState", [currentStepIdx], 'error');
+                    }
+                }
+            });
+
+            // 步骤显示事件
+            $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection, stepPosition) {
+                $("#prev-btn").removeClass('disabled').prop('disabled', false);
+                $("#next-btn").removeClass('disabled').prop('disabled', false);
+                if(stepPosition === 'first') {
+                    $("#prev-btn").addClass('disabled').prop('disabled', true);
+                } else if(stepPosition === 'last') {
+                    $("#next-btn").addClass('disabled').prop('disabled', true);
+                }
+
+                let stepInfo = $('#smartwizard').smartWizard("getStepInfo");
+                $("#sw-current-step").text(stepInfo.currentStep + 1);
+                $("#sw-total-step").text(stepInfo.totalSteps);
+
+                if (stepPosition == 'last') {
+                    $("#btnFinish").prop('disabled', false);
+                } else {
+                    $("#btnFinish").prop('disabled', true);
+                }
+            });
+        });
+
+        function onCancel() {
+            $('#smartwizard').smartWizard("reset");
+            $('form').each(function() {
+                this.reset();
+            });
+        }
+
+        function onConfirm() {
+            let formData = {};
+            $('form').each(function() {
+                $(this).find('input, select').each(function() {
+                    let $input = $(this);
+                    if ($input.attr('type') === 'checkbox') {
+                        formData[$input.attr('id')] = $input.is(':checked');
+                    } else {
+                        formData[$input.attr('id')] = $input.val();
+                    }
+                });
+            });
+            
+            // TODO: 这里添加保存配置的逻辑
+            console.log('配置数据:', formData);
+            alert('配置已保存！');
+            onCancel();
+        }
+    </script>
+</body>
+</html>

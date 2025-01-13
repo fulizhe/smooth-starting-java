@@ -1,0 +1,38 @@
+{
+    "steps": [
+        {
+            "title": "数据库配置",
+            "fields": [
+                {
+                    "name": "数据库地址",
+                    "type": "text",
+                    "id": "db_host",
+                    "default": "localhost"
+                },
+                {
+                    "name": "数据库端口",
+                    "type": "text",
+                    "id": "db_port",
+                    "default": "3306"
+                }
+            ]
+        },
+        {
+            "title": "数据库配置2",
+            "fields": [
+                {
+                    "name": "数据库地址",
+                    "type": "text",
+                    "id": "db_host2",
+                    "default": "localhost"
+                },
+                {
+                    "name": "数据库端口",
+                    "type": "text",
+                    "id": "db_port2",
+                    "default": "3306"
+                }
+            ]
+        }        
+    ]
+}
