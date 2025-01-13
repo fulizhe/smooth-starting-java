@@ -8,4 +8,5 @@ com.fulizhe.ssj.propedit.OverridePropertiesPropertySourceEnvironmentPostProcesso
 
 #
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.fulizhe.ssj.propedit.CustomPropertiesConfiguration
+  com.fulizhe.ssj.propedit.CustomPropertiesConfiguration, \
+  com.fulizhe.ssj.propedit.frontend.PropEditAutoConfiguration

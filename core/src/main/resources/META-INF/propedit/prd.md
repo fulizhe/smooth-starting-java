@@ -13,6 +13,7 @@
 
 1. 生成的系列文件存放到 META-INF/propedit文件夹下, 如果不存在你需要自己创建这个文件夹.
 
+#########################################################
 # 使用说明
 
 ## 1. JSON配置文件格式
@@ -46,9 +47,24 @@
 - `checkbox`: 复选框
 - `select`: 下拉选择框（需要提供options数组）
 
-## 2. API使用方法
+## 2. 配置方法
 
-### 生成配置页面
+### 自动配置（推荐）
+在`application.yml`或`application.properties`中配置：
+
+```yaml
+ssj:
+  propedit:
+    enabled: true                                        # 是否启用配置页面生成功能，默认true
+    json-config-path: META-INF/propedit/props.json      # JSON配置文件路径，相对于classpath
+    custom-template-path: META-INF/propedit/template.html  # 可选，自定义模板路径
+    page-url-path: /propedit/config                     # 生成的页面访问路径
+    output-path: META-INF/propedit2/config.html         # 生成的文件存放路径
+```
+
+系统启动后，可以通过配置的`page-url-path`直接访问配置页面，例如：`http://localhost:8080/propedit/config/configLQ.html`
+
+### 手动调用
 ```java
 ConfigToHtmlGenerator generator = new ConfigToHtmlGenerator();
 
@@ -114,3 +130,9 @@ GET /api/config/load
    - 配置文件中不要包含敏感信息
    - 建议对API接口添加适当的访问控制
    - 生成的配置文件建议放在安全的位置
+
+6. 自动配置说明：
+   - 系统启动时会自动根据配置生成页面
+   - 可以通过`ssj.propedit.enabled=false`禁用自动配置
+   - 所有配置项都有默认值，可以零配置使用
+   - 自定义模板路径为可选项，不配置则使用默认模板
