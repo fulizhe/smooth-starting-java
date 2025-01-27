@@ -14,7 +14,7 @@ import cn.hutool.core.util.RandomUtil;
 public class HelloController {
     
     public HelloController(){
-        ThreadUtil.safeSleep(1000 * 50);
+        ThreadUtil.safeSleep(1000 * 10);
     }
 
 	@GetMapping("/hello")
@@ -38,8 +38,10 @@ public class HelloController {
 		String appName = "LQ-appName";
 		return "<head><title>Sidecar</title></head><body>\n"
 				+ "<a href='/ping'>ping</a><br/>\n"
-				+ "<a href='/actuator/health'>health</a><br/>\n" + "<a href='/hosts/"
-				+ appName + "'>hosts/" + appName + "</a><br/>\n" + "</body>";
-	}		
+				+ "<a href='/actuator/health'>health</a><br/>\n" 
+				+ "<a href='/hosts/" + appName + "'>hosts/" + appName + "</a><br/>\n"
+				+ "<a href='/propedit/config/propedit.html'>配置向导</a><br/>\n"
+				+ "</body>";
+	}
 
 }

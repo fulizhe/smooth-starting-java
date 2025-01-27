@@ -21,10 +21,9 @@ import cn.hutool.core.lang.Console;
 public class MiniJettyServer extends AbstractMiniWebServer implements IMiniWebServer {
 
     private Server jettyServer;
-    private final IRequestDealer requestDealer;
 
     public MiniJettyServer(IRequestDealer requestDealer) {
-        this.requestDealer = requestDealer;
+        super(requestDealer);
     }
 
     @Override

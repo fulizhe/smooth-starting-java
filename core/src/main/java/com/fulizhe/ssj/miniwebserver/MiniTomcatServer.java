@@ -25,10 +25,8 @@ public class MiniTomcatServer extends AbstractMiniWebServer implements IMiniWebS
 
     private Tomcat minimalTomcatServer;
 
-    private final IRequestDealer requestDealer;
-
     public MiniTomcatServer(IRequestDealer requestDealer) {
-        this.requestDealer = requestDealer;
+        super(requestDealer);
     }
 
     @Override

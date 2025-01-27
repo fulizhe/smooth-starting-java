@@ -80,6 +80,27 @@ public class ConfigToHtmlGenerator {
                     field.put("options", options);
                 }
                 
+                // 添加验证规则
+                Map<String, Object> validation = new HashMap<>();
+                // 设置默认值，确保模板中访问这些属性时不会出现空指针
+                validation.put("required", false);
+                validation.put("pattern", "");
+                validation.put("errorMessage", "");
+                
+                if (fieldNode.has("validation")) {
+                    JsonNode validationNode = fieldNode.get("validation");
+                    if (validationNode.has("required")) {
+                        validation.put("required", validationNode.get("required").asBoolean());
+                    }
+                    if (validationNode.has("pattern")) {
+                        validation.put("pattern", validationNode.get("pattern").asText());
+                    }
+                    if (validationNode.has("errorMessage")) {
+                        validation.put("errorMessage", validationNode.get("errorMessage").asText());
+                    }
+                }
+                field.put("validation", validation);
+                
                 fields.add(field);
             }
             step.put("fields", fields);
@@ -107,7 +128,7 @@ public class ConfigToHtmlGenerator {
         }
         
         // 6. 写入生成的HTML
-        FileUtil.writeString(renderedHtml,outputPath, StandardCharsets.UTF_8);
+        FileUtil.writeString(renderedHtml, outputPath, StandardCharsets.UTF_8);
     }
 
     public static void main(String[] args) throws IOException {
@@ -115,8 +136,8 @@ public class ConfigToHtmlGenerator {
         
         // 使用默认模板生成
         generator.generate(
-            "core/src/main/resources/META-INF/propedit/props.json",
-            "core/src/main/resources/META-INF/propedit2/config.html"
+            "core/src/main/resources/META-INF/propedit/template.json",
+            "core/src/main/resources/META-INF/propedit/config.html"
         );
     }
 }

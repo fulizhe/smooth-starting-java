@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ConfigToHtmlGenerator",
+            "request": "launch",
+            "mainClass": "com.fulizhe.ssj.propedit.frontend.ConfigToHtmlGenerator",
+            "projectName": "smooth-starting-java"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApplicationWithExtend<ssj-sample-extend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.fulizhe.ssj.sample.ApplicationWithExtend",
+            "projectName": "ssj-sample-extend",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=38935 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ssj-sample-extend"
+        }
+    ]
+}

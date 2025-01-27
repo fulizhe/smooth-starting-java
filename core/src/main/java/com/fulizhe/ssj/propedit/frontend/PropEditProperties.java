@@ -16,7 +16,7 @@ public class PropEditProperties {
     /**
      * JSON配置文件路径，相对于classpath
      */
-    private String jsonConfigPath = "META-INF/propedit/xxxx.json";
+    private String jsonConfigPath = "META-INF/propedit/template.json";
 
     /**
      * 自定义模板路径，相对于classpath
@@ -31,5 +31,5 @@ public class PropEditProperties {
     /**
      * 生成的HTML文件存放路径，相对于classpath
      */
-    private String outputPath = "META-INF/propedit2/configLQ.html";
+    private String outputPath = "META-INF/propedit/propedit.html";
 } 

@@ -3,8 +3,6 @@ package com.fulizhe.ssj.propedit.frontend;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -36,7 +34,7 @@ public class PropEditAutoConfiguration {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler(properties.getPageUrlPath() + "/**")
-                        .addResourceLocations("classpath:/META-INF/propedit2/");
+                        .addResourceLocations("classpath:/META-INF/propedit/");
             }
         };
     }

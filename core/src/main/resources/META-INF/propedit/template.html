@@ -46,9 +46,10 @@
                             
                             <!-- Text 类型 -->
                             <div th:if="${field.type == 'text'}" class="flex-grow-1">
-                                <input type="text" class="form-control" th:id="${field.id}" th:value="${field.default}" required>
+                                <input type="text" class="form-control" th:id="${field.id}" th:value="${field.default}"
+                                       th:attr="required=${field.validation.required}, pattern=${field.validation.pattern}">
                                 <div class="valid-feedback">输入正确!</div>
-                                <div class="invalid-feedback" th:text="'请输入有效的' + ${field.name}">请输入有效值</div>
+                                <div class="invalid-feedback" th:text="${field.validation.errorMessage}">请输入有效值</div>
                             </div>
                             
                             <!-- Select 类型 -->

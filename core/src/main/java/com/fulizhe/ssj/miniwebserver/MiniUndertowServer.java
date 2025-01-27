@@ -23,10 +23,8 @@ public class MiniUndertowServer extends AbstractMiniWebServer implements IMiniWe
 
     private Undertow minimalUndertowServer;
 
-    private final IRequestDealer requestDealer;
-
     public MiniUndertowServer(IRequestDealer requestDealer) {
-        this.requestDealer = requestDealer;
+        super(requestDealer);
     }
 
     @Override
