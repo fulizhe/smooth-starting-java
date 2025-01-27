@@ -1,0 +1,44 @@
+{
+    "name": "Java Development",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "8",
+            "installMaven": "true",
+            "mavenVersion": "3.8.8"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "redhat.vscode-xml",
+                "vscjava.vscode-spring-boot-dashboard",
+                "vscjava.vscode-spring-initializr",
+                "Pivotal.vscode-spring-boot"
+            ],
+            "settings": {
+                "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+                "maven.executable.path": "/usr/local/sdkman/candidates/maven/current/bin/mvn",
+                "java.configuration.updateBuildConfiguration": "automatic"
+            }
+        }
+    },
+    "forwardPorts": [8080],
+    "remoteUser": "vscode",
+    // 配置更大的内存限制，适合Java开发
+    "hostRequirements": {
+        "memory": "8gb"
+    },
+    // 挂载本地Maven缓存目录到容器中
+    "mounts": [
+        "source=${localEnv:USERPROFILE}/.m2/repository,target=/home/vscode/.m2,type=bind,consistency=cached"
+    ],
+    // 设置环境变量
+    "containerEnv": {
+        "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
+        "MAVEN_HOME": "/usr/local/sdkman/candidates/maven/current"
+    }
+} 
