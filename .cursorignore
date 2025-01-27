@@ -1,0 +1,54 @@
+# 忽略IDE相关文件
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# 忽略Maven构建目录和文件
+**/target/
+*.jar
+*.war
+*.ear
+dependency-reduced-pom.xml
+.mvn/
+mvnw
+mvnw.cmd
+
+# 忽略日志文件
+**/logs/
+*.log
+
+# 忽略临时文件
+*.tmp
+*.temp
+*.swp
+*~
+
+# 忽略操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 忽略测试报告和覆盖率报告
+**/test-output/
+**/coverage/
+**/jacoco.exec
+
+# 忽略本地配置文件
+**/application-local.properties
+**/application-local.yml
+**/application-dev.properties
+**/application-dev.yml
+
+# 忽略编译生成的类文件
+*.class
+
+# 忽略构建工具生成的目录
+.gradle/
+build/
+
+# 忽略Node模块(如果项目包含前端代码)
+node_modules/
+npm-debug.log
+yarn-error.log
