@@ -24,6 +24,19 @@
                         "pattern": "^\\d{1,5}$",
                         "errorMessage": "请输入有效的端口号（1-65535）"
                     }
+                },
+                {
+                    "name": "启用SSL",
+                    "type": "checkbox",
+                    "id": "enable_ssl",
+                    "default": false
+                },
+                {
+                    "name": "数据库类型",
+                    "type": "select",
+                    "id": "db_type",
+                    "default": "MySQL",
+                    "options": ["MySQL", "PostgreSQL", "SQLite"]
                 }
             ]
         },
